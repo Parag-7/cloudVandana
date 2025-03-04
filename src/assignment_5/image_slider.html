@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Image Slider</title>
+  <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+        #slider-container {
+            position: relative;
+            width: 500px;
+            margin: auto;
+        }
+        #slider {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+        #caption {
+            margin-top: 10px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .btn {
+            margin: 10px;
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            border-radius: 5px;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+<h2>Image Slider</h2>
+<div id="slider-container">
+  <img id="slider" src="" alt="Image Slider">
+  <p id="caption"></p>
+</div>
+<button class="btn" onclick="prevImage()">Previous</button>
+<button class="btn" onclick="nextImage()">Next</button>
+
+<script>
+    const images = [
+        { url: 'https://picsum.photos/id/1015/500/300', caption: 'Beautiful Sunset' },
+            { url: 'https://picsum.photos/id/1020/500/300', caption: 'Green Mountains' },
+            { url: 'https://picsum.photos/id/1035/500/300', caption: 'Ocean Waves' },
+            { url: 'https://picsum.photos/id/1043/500/300', caption: 'Snowy Peaks' },
+            { url: 'https://picsum.photos/id/1050/500/300', caption: 'Serene Lake' },
+            { url: 'https://picsum.photos/id/122/4147/2756', caption: 'City Lights' }
+    ];
+let currentIndex = 0;
+        let autoplayInterval;
+
+        function updateImage() {
+            document.getElementById('slider').src = images[currentIndex].url;
+            document.getElementById('caption').innerText = images[currentIndex].caption;
+        }
+
+        function prevImage() {
+            currentIndex = (currentIndex - 1 + images.length) % images.length;
+            updateImage();
+        }
+
+        function nextImage() {
+            currentIndex = (currentIndex + 1) % images.length;
+            updateImage();
+        }
+
+        function startAutoplay() {
+            autoplayInterval = setInterval(nextImage, 10000);
+        }
+
+        function stopAutoplay() {
+            clearInterval(autoplayInterval);
+        }
+
+        // Initialize the slider with the first image
+        updateImage();
+        startAutoplay();
+    </script>
+</body>
+</html>
